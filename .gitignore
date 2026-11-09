@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+.claude-design/design-brief.json
+.claude-design/lab/data/fixtures.ts
+.claude-design/run-log.md
