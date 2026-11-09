@@ -6,7 +6,7 @@ import { useHomeData } from "@/hooks/useHomeData";
 
 export default function Home() {
   const { health, album, track } = useHomeData(
-    { artist: "Adele", album: "21" },
+    { artist: "Adele", album: "19" },
     { artist: "Adele", album: "25", track: "Hello" },
   );
 
