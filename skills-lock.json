@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "skills": {
+    "nextjs-app-router-patterns": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "skillPath": "plugins/frontend-mobile-development/skills/nextjs-app-router-patterns/SKILL.md",
+      "computedHash": "3a46e9093baecb3a85819529ce05006f817663f48d9e872868c32ae6049c0d5c"
+    },
+    "nextjs-zustand": {
+      "source": "fusengine/claude-plugins",
+      "sourceType": "github",
+      "skillPath": "plugins/nextjs-expert/skills/nextjs-zustand/SKILL.md",
+      "computedHash": "502004a814d0b8b9aa0d9d5e626cac682a3caa76d3ece62678f0ec2be6eb8d2a"
+    },
+    "ponytail": {
+      "source": "dietrichgebert/ponytail",
+      "sourceType": "github",
+      "skillPath": "skills/ponytail/SKILL.md",
+      "computedHash": "9feedbe220d039ba30720217b3fce16214817063fb54a48843d89368c86554e9"
+    },
+    "recharts": {
+      "source": "andy-spike/skills",
+      "sourceType": "github",
+      "skillPath": "skills/recharts/SKILL.md",
+      "computedHash": "7837f15d0abac0f5199eba9417bd8950e4f01c58731c81884e82e58b0c474404"
+    },
+    "solar-icons": {
+      "source": "saoudi-h/solar-icons",
+      "sourceType": "github",
+      "skillPath": "skills/solar-icons/SKILL.md",
+      "computedHash": "e794f2b7d94238de304a856ed4f0410d3e13307b01c146bf910e540c341613b3"
+    }
+  }
+}
