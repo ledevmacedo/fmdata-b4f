@@ -13,6 +13,18 @@
       "skillPath": ".claude/skills/design-system/SKILL.md",
       "computedHash": "3c1ccf64b7a826a901ac094aa791406dc39875733db14dfbc228007670d86d42"
     },
+    "design-to-code": {
+      "source": "Atharvsinh-codez/skills",
+      "sourceType": "github",
+      "skillPath": "design-to-code/SKILL.md",
+      "computedHash": "6288bdc18fc23c5881dc1651f42fd84a151661bcee6a3ba2025a0b9983ae0dc1"
+    },
+    "frontend-design": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "skillPath": "skills/frontend-design/SKILL.md",
+      "computedHash": "106acf230014cbb43ca34e6410371321b56ca742f9ee0442e8ec05bf02eb0384"
+    },
     "impeccable": {
       "source": "pbakaus/impeccable",
       "sourceType": "github",
