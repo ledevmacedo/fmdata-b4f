@@ -1,7 +1,7 @@
 import type { AlbumProfile, ArtistProfile, Scrobble } from "./api";
 
 /** Períodos disponíveis no filtro global do dashboard. */
-export type Periodo = "tudo" | "30d" | "14d" | "7d" | "24h";
+export type Period = "all" | "30d" | "14d" | "7d" | "24h";
 
 /** Estado de qualquer dado que vem da rede. */
 export type Status = "idle" | "loading" | "success" | "error" | "not-found";
@@ -15,60 +15,60 @@ export interface Entry<T> {
 }
 
 /** Item de um ranking (artistas, músicas ou álbuns). */
-export interface ItemRanking {
+export interface RankingItem {
   /** Identificador único, por exemplo "artista::faixa". */
-  chave: string;
+  key: string;
   /** Nome apresentado ao utilizador. */
-  nome: string;
+  name: string;
   /** Contexto opcional, por exemplo o artista de uma faixa. */
-  subtitulo?: string;
-  contagem: number;
-  imagem?: string | null;
+  subtitle?: string;
+  count: number;
+  image?: string | null;
 }
 
 /** Ponto de um gráfico mensal. */
-export interface PontoMensal {
+export interface MonthlyPoint {
   /** Ano e mês em UTC, no formato "2024-03". */
-  mes: string;
-  contagem: number;
+  month: string;
+  count: number;
 }
 
 /** Ponto de um gráfico de 24 horas, em UTC. */
-export interface PontoHora {
+export interface HourPoint {
   /** Hora do dia em UTC (0–23). */
-  hora: number;
-  contagem: number;
+  hour: number;
+  count: number;
 }
 
 /** Artista semelhante com indicação se já foi ouvido. */
-export interface ArtistaSemelhante {
-  nome: string;
-  ouvido: boolean;
+export interface SimilarArtist {
+  name: string;
+  listened: boolean;
 }
 
 /** Resumo all-time de um artista. */
-export interface ResumoArtista {
-  totalAudicoes: number;
+export interface ArtistSummary {
+  totalScrobbles: number;
   /** Percentagem do histórico completo, entre 0 e 100. */
-  percentagemDoTotal: number;
+  percentOfTotal: number;
   /** Faixas distintas marcadas como favoritas. */
-  faixasFavoritas: number;
-  primeiraReproducao: Date | null;
-  ultimaReproducao: Date | null;
+  favouriteTracks: number;
+  firstPlayed: Date | null;
+  lastPlayed: Date | null;
 }
 
 /** Álbum de um artista, com as faixas distintas que já foram ouvidas. */
-export interface AlbumDoArtista {
-  nome: string;
-  audicoes: number;
-  faixasDistintas: number;
-  imagem?: string | null;
+export interface ArtistAlbum {
+  name: string;
+  scrobbles: number;
+  distinctTracks: number;
+  image?: string | null;
 }
 
 /** Resultado da contagem de géneros/tags. */
-export interface GeneroContagem {
-  genero: string;
-  contagem: number;
+export interface GenreCount {
+  genre: string;
+  count: number;
 }
 
 export type ScrobblesEntry = Entry<Scrobble[]>;

@@ -1,10 +1,7 @@
 /**
- * Contratos de resposta da API FMData.
+ * Contratos dos endpoints que devolvem dados do Last.fm.
  * Fonte: openapi.json (snapshot local do spec).
  */
-
-/** Códigos de erro documentados pela API. */
-export type ApiErrorCode = "missing_parameter" | "not_found";
 
 /** Reprodução normalizada devolvida por /scrobbles. */
 export interface Scrobble {
@@ -86,45 +83,4 @@ export interface HourCount {
 /** Resposta de /health. */
 export interface HealthResponse {
   status: "ok";
-}
-
-/** Tamanhos de imagem documentados pela API. */
-export type ImageSize = "extralarge" | "large" | "medium" | "small";
-
-/** Imagem num tamanho específico. */
-export interface SizedImage {
-  size: ImageSize;
-  url: string;
-}
-
-/** Resposta de /artist-image. */
-export interface ArtistImageResponse {
-  artist: string;
-  image_url: string;
-}
-
-/** Resposta de /album-image. */
-export interface AlbumImageResponse {
-  artist: string;
-  album: string;
-  image_url: string;
-}
-
-/** Resposta de /track-image. */
-export interface TrackImageResponse {
-  artist: string;
-  album: string;
-  track: string;
-  images: SizedImage[];
-}
-
-/** Detalhe de um erro devolvido pela API. */
-export interface ApiErrorDetail {
-  code: ApiErrorCode;
-  message: string;
-}
-
-/** Corpo JSON de uma resposta de erro (400 ou 404). */
-export interface ApiErrorResponse {
-  error: ApiErrorDetail;
 }
