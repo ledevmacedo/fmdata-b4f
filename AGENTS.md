@@ -28,3 +28,42 @@ Retain qualifying friction even if it is later fixed or worked around; record th
 Before the final response, run one reporting pass. If candidates remain, from this file's directory run `npx --no-install next internal agent-feedback-instructions` once without piping or truncating its output. Follow its output or error guidance. If a network sandbox blocks it, retry with network access; if it still returns no output, continue normally.
 
 <!-- END:nextjs-agent-feedback -->
+
+# FMData
+
+Last.fm listening dashboard (final frontend project). UI copy and metadata are Portuguese (pt-PT).
+
+## Commands
+
+- `npm run dev` — Turbopack dev server. `next dev` rewrites the managed blocks above; commit `AGENTS.md` with your work.
+- `npm run build` — production build, including TypeScript checks.
+- `npx tsc --noEmit` — the only standalone typecheck; there is no `typecheck` script.
+- `npx biome check <paths>` — lint/format the files you touched. Use `--write` to auto-fix and organize imports.
+- `npm run lint` (`biome check` over everything) currently fails on pre-existing formatting in config files, stub routes, and `.agents/skills`; do not fix unrelated files to make it pass. Avoid repo-wide `npm run format` for the same reason.
+- No test runner, CI, or pre-commit hooks exist. Do not invent `npm test` commands.
+
+## Framework notes
+
+- Next.js 16.4.5 + React 19.3, App Router under `src/app/`. Read the version-matched docs in `node_modules/next/dist/docs/` before using framework APIs — especially `01-app/03-api-reference/05-config/01-next-config-js/cacheComponents.md`, `partialPrefetching.md`, and `01-app/02-guides/migrating-to-cache-components.md`.
+- `next.config.ts` enables `cacheComponents` and `partialPrefetching`. Data is dynamic by default; cache explicitly with `use cache` + `cacheLife`/`cacheTag`. Route segment configs (`dynamic`, `revalidate`, `fetchCache`, `runtime`, `experimental_ppr`) error under this setup.
+- `params`/`searchParams` are Promises; await them. Prefer generated `PageProps<"/artist/[slug]">` and `LayoutProps<"/">` helpers over hand-written prop types.
+- Tailwind CSS 4 is configured in CSS only. Tokens live in `src/app/globals.css` (`@theme inline`). Do not add `tailwind.config.*`, and do not hardcode colors — use semantic utilities (`bg-card`, `text-muted-foreground`) or the existing `--*` tokens.
+- UI primitives in `src/components/ui/` are hand-rolled with CVA and native `<dialog>`/disclosure elements, not Radix. Solar icons use per-icon imports such as `@solar-icons/react/linear/arrow-right`.
+- `@/*` maps to `src/*`. Biome: 2-space indent, double quotes, organized imports.
+
+## Map
+
+- `/` — dashboard, currently a stub in `src/app/page.tsx`.
+- `/artist/[slug]` — stub, but the files are named `src/app/artist/[slug].tsx` and `not-Found.tsx`. Rename to `page.tsx` and `not-found.tsx`; otherwise Next creates no route (the build currently lists only `/`, `/_not-found`, `/design-system`).
+- `/design-system` — complete token/component showcase; use it to inspect visual changes.
+- `src/lib/cn.ts` — class merge helper. `src/lib/api.ts`, `src/stores/*`, and `src/providers/*` are empty placeholders.
+- `DESIGN.md` describes the visual system; `src/app/globals.css` is the executable source of truth. `.claude-design/` is a git-ignored temporary lab with a different art direction — not a reference.
+- `fmdata-guia-de-etapas.md` is the assignment roadmap: pure functions in `lib/`, `fetch` in `services/api.ts`, Zustand store in `stores/`. It suggests installing `recharts`, but it is not in `package.json`; install it before importing. Skills live in `.agents/skills/` (`skills-lock.json`).
+
+## API
+
+- Base URL: `process.env.NEXT_PUBLIC_API_URL` (`.env` is ignored; currently `https://fmdata-api.onrender.com`).
+- `openapi.json` is a local snapshot of the spec — check it for exact fields and errors instead of fetching `/docs`.
+- Endpoints: `/scrobbles` (full array), `/scrobbles/amostra` (first 100), `/artist-info`, `/album-info`, `/artist-image`, `/album-image`, `/track-image`, `/stats/listening-clock` (24 UTC buckets), `/health`. Profile/image endpoints take required query params (`artist`, `album`, `track`).
+- `date_uts` is Unix seconds. `date_iso`/`date_uts` can be null, and `nowplaying` rows have no date. Errors are `{ "error": { "code", "message" } }` with 400/404. Free hosting means cold-start latency; `/health` first.
+- `next/image` remote patterns allow only `lastfm-img.freetls.fastly.net`; artist images can be Wikimedia URLs, so extend `images.remotePatterns` before rendering them.
