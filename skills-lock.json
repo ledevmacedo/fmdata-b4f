@@ -60,6 +60,12 @@
       "sourceType": "github",
       "skillPath": "skills/solar-icons/SKILL.md",
       "computedHash": "e794f2b7d94238de304a856ed4f0410d3e13307b01c146bf910e540c341613b3"
+    },
+    "wireframe": {
+      "source": "ghaida/intent",
+      "sourceType": "github",
+      "skillPath": "skills/wireframe/SKILL.md",
+      "computedHash": "f5928de8904b8ca11daa392359e60877f1e51bfb4d4b6658af829f8d5de2ec59"
     }
   }
 }

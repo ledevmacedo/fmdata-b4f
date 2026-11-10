@@ -56,9 +56,10 @@ Last.fm listening dashboard (final frontend project). UI copy and metadata are P
 - `/` — dashboard, currently a stub in `src/app/page.tsx`.
 - `/artist/[slug]` — stub, but the files are named `src/app/artist/[slug].tsx` and `not-Found.tsx`. Rename to `page.tsx` and `not-found.tsx`; otherwise Next creates no route (the build currently lists only `/`, `/_not-found`, `/design-system`).
 - `/design-system` — complete token/component showcase; use it to inspect visual changes.
-- `src/lib/cn.ts` — class merge helper. `src/lib/api.ts`, `src/stores/*`, and `src/providers/*` are empty placeholders.
+- `src/types/` holds shared contracts: `api.ts` mirrors the API's snake_case fields, `domain.ts`/`store.ts` define `Entry<T>`, `Status`, `Periodo`, and `AppStore` (Portuguese domain names), and `index.ts` re-exports them. `ArtistInfo`/`AlbumInfo` are aliases for `ArtistProfile`/`AlbumProfile`. Reuse these instead of redefining API shapes.
+- `src/lib/cn.ts` — class merge helper. `src/lib/api.ts`, `src/stores/*`, and `src/providers/*` are still empty placeholders.
 - `DESIGN.md` describes the visual system; `src/app/globals.css` is the executable source of truth. `.claude-design/` is a git-ignored temporary lab with a different art direction — not a reference.
-- `fmdata-guia-de-etapas.md` is the assignment roadmap: pure functions in `lib/`, `fetch` in `services/api.ts`, Zustand store in `stores/`. It suggests installing `recharts`, but it is not in `package.json`; install it before importing. Skills live in `.agents/skills/` (`skills-lock.json`).
+- `fmdata-guia-de-etapas.md` is the assignment roadmap: pure functions in `lib/`, `fetch` in `services/api.ts`, Zustand store in `stores/`. `recharts` and `zustand` are installed. Skills live in `.agents/skills/` (`skills-lock.json`).
 
 ## API
 
