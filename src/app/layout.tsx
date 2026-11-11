@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import "@/components/glaze/styles.css";
+import { GlazePortalProvider } from "@/lib/glaze/portal";
 import { AppStoreProvider } from "@/providers/app-store-provider";
 import "./globals.css";
 
@@ -15,17 +17,19 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "FMData",
-  description: "Estado da API FMData e imagem de álbum em destaque.",
+  description: "Histórico de audições do Last.fm.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="pt-PT"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} h-full`}
     >
-      <body className="min-h-full flex flex-col">
-        <AppStoreProvider>{children}</AppStoreProvider>
+      <body className="glaze min-h-dvh">
+        <GlazePortalProvider>
+          <AppStoreProvider>{children}</AppStoreProvider>
+        </GlazePortalProvider>
       </body>
     </html>
   );

@@ -1,71 +1,107 @@
 {
-  "version": 1,
+  "version": 2,
   "skills": {
+    "build-design-system": {
+      "source": "arla6ka/design.how",
+      "sourceType": "github",
+      "skillPath": "skills/build-design-system/SKILL.md",
+      "computedHash": "b0fca5c25fbf7640c82ba5a289861e289c09fa4bfc7708c3a465c136266cbd3f"
+    },
+    "component-docs": {
+      "source": "arla6ka/design.how",
+      "sourceType": "github",
+      "skillPath": "skills/component-docs/SKILL.md",
+      "computedHash": "e769b686e6a8e1955ae06085cee773ef70e2cbd502c0bf906a12e8483d66ab58"
+    },
     "design-lab": {
       "source": "0xdesign/design-plugin",
       "sourceType": "github",
       "skillPath": "design-and-refine/skills/design-lab/SKILL.md",
-      "computedHash": "8879d318fcedccbae872a06b3d9a4ed3c5e75340a96d9c6baf765a4b19593c25"
+      "computedHash": "e7361154d290d1ed92620c38d8572608e8539a6c547d958d47b697739408833d"
     },
     "design-system": {
       "source": "nextlevelbuilder/ui-ux-pro-max-skill",
       "sourceType": "github",
       "skillPath": ".claude/skills/design-system/SKILL.md",
-      "computedHash": "3c1ccf64b7a826a901ac094aa791406dc39875733db14dfbc228007670d86d42"
+      "computedHash": "9efdc106c73d8d298b5a90d55c56995840a37f754fb9d498d14e6562bdaadc23"
+    },
+    "design-system-boss": {
+      "source": "arla6ka/design.how",
+      "sourceType": "github",
+      "skillPath": "skills/design-system-boss/SKILL.md",
+      "computedHash": "1b06e362de47f4b8eb54d2a9f84e89f5d2856f417f7190b07a6be96da1202752"
     },
     "design-to-code": {
       "source": "Atharvsinh-codez/skills",
       "sourceType": "github",
       "skillPath": "design-to-code/SKILL.md",
-      "computedHash": "6288bdc18fc23c5881dc1651f42fd84a151661bcee6a3ba2025a0b9983ae0dc1"
+      "computedHash": ""
     },
     "frontend-design": {
       "source": "anthropics/skills",
       "sourceType": "github",
       "skillPath": "skills/frontend-design/SKILL.md",
-      "computedHash": "106acf230014cbb43ca34e6410371321b56ca742f9ee0442e8ec05bf02eb0384"
+      "computedHash": "83485963700bcf11d5bf78118facb301676b69d918fee2e45a95e7f1a2840f6c"
     },
     "impeccable": {
       "source": "pbakaus/impeccable",
       "sourceType": "github",
       "skillPath": ".agents/skills/impeccable/SKILL.md",
-      "computedHash": "38ab08620755897fb9427daedf64d58cb575c44b364db0c742a185a1cb7cb8c2"
+      "computedHash": "c05846cabdf69b247d13f41671935c676f417439036e25e70f92d84e945d0d89"
+    },
+    "migrate-design-system": {
+      "source": "arla6ka/design.how",
+      "sourceType": "github",
+      "skillPath": "skills/migrate-design-system/SKILL.md",
+      "computedHash": "b8d87e04df10fed46d0079a253799cf10bef82261099661df89b9c3a47cbf96a"
     },
     "nextjs-app-router-patterns": {
       "source": "wshobson/agents",
       "sourceType": "github",
       "skillPath": "plugins/frontend-mobile-development/skills/nextjs-app-router-patterns/SKILL.md",
-      "computedHash": "3a46e9093baecb3a85819529ce05006f817663f48d9e872868c32ae6049c0d5c"
+      "computedHash": "39b84480d3a62355fd1199173dc70b97efe1daf6dbfae560cc7b85e127934a98"
     },
     "nextjs-zustand": {
       "source": "fusengine/claude-plugins",
       "sourceType": "github",
       "skillPath": "plugins/nextjs-expert/skills/nextjs-zustand/SKILL.md",
-      "computedHash": "502004a814d0b8b9aa0d9d5e626cac682a3caa76d3ece62678f0ec2be6eb8d2a"
+      "computedHash": "9658f0a7becddea476a82641e05e34becc1dffeb2660b42faecd6f3516b14f3f"
     },
     "ponytail": {
       "source": "dietrichgebert/ponytail",
       "sourceType": "github",
       "skillPath": "skills/ponytail/SKILL.md",
-      "computedHash": "9feedbe220d039ba30720217b3fce16214817063fb54a48843d89368c86554e9"
+      "computedHash": "56d72677aca02689ac89bd48734e8c19b40ab86716d1257eaf5f1238b43cda6b"
     },
     "recharts": {
       "source": "andy-spike/skills",
       "sourceType": "github",
       "skillPath": "skills/recharts/SKILL.md",
-      "computedHash": "7837f15d0abac0f5199eba9417bd8950e4f01c58731c81884e82e58b0c474404"
+      "computedHash": "a2c9d5fd941c2fb7596dd1b2ad1e9eb000b2a2efdc57539990ad56ba580550a6"
     },
     "solar-icons": {
       "source": "saoudi-h/solar-icons",
       "sourceType": "github",
       "skillPath": "skills/solar-icons/SKILL.md",
-      "computedHash": "e794f2b7d94238de304a856ed4f0410d3e13307b01c146bf910e540c341613b3"
+      "computedHash": "c3dc6275621ecceb5c1dc2698e301e4bab9b03afddbeec528e0970466a979e9c"
+    },
+    "token-mapping": {
+      "source": "arla6ka/design.how",
+      "sourceType": "github",
+      "skillPath": "skills/token-mapping/SKILL.md",
+      "computedHash": "5b4efbdc1aa8e7ec903afbf8da4fb4db0e7c9bfa9db6b417c153ee46cf8d5ed7"
+    },
+    "ui-review": {
+      "source": "arla6ka/design.how",
+      "sourceType": "github",
+      "skillPath": "skills/ui-review/SKILL.md",
+      "computedHash": "16106d08018859dade85074982e831a11807352dfff74af72edeb6fe8df2f339"
     },
     "wireframe": {
       "source": "ghaida/intent",
       "sourceType": "github",
       "skillPath": "skills/wireframe/SKILL.md",
-      "computedHash": "f5928de8904b8ca11daa392359e60877f1e51bfb4d4b6658af829f8d5de2ec59"
+      "computedHash": "595b67ff7403bfcd94e846bbf0fca92be330cbdb1622fa3e462517eb8133e97d"
     }
   }
 }

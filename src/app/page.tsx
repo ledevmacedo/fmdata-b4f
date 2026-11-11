@@ -1,6 +1,27 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+} from "@/components/glaze/ui/alert";
+import { Button } from "@/components/glaze/ui/button";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/glaze/ui/card";
+import {
+  DataList,
+  DataListItem,
+  DataListLabel,
+  DataListValue,
+} from "@/components/glaze/ui/data-list";
+import {
+  Status as StatusLine,
+  type StatusValue,
+} from "@/components/glaze/ui/status";
 import { useScrobbles } from "@/hooks/use-scrobbles";
 import type { Status } from "@/types";
 
@@ -9,16 +30,16 @@ import type { Status } from "@/types";
  * É substituído pelo dashboard na etapa dos ecrãs.
  */
 
-const STATUS_LABELS: Record<Status, string> = {
-  idle: "À espera",
-  loading: "A carregar",
-  success: "Pronto",
-  error: "Erro",
-  "not-found": "Não encontrado",
+const STATUS_LABELS: Record<Status, { status: StatusValue; label: string }> = {
+  idle: { status: "idle", label: "À espera" },
+  loading: { status: "running", label: "A carregar" },
+  success: { status: "ok", label: "Pronto" },
+  error: { status: "fail", label: "Erro" },
+  "not-found": { status: "warn", label: "Não encontrado" },
 };
 
-function formatDate(value: number | null): string {
-  if (!value) return "—";
+function formatDate(value: number | string | null): string {
+  if (!value) return "Sem data";
 
   return new Intl.DateTimeFormat("pt-PT", {
     dateStyle: "short",
@@ -29,56 +50,76 @@ function formatDate(value: number | null): string {
 export default function Home() {
   const { data, status, error, updatedAt, reload } = useScrobbles();
   const latest = data.find((scrobble) => scrobble.date_iso);
+  const current = STATUS_LABELS[status];
 
   return (
-    <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-8 px-6 py-12">
-      <header className="flex flex-wrap items-end justify-between gap-4">
-        <div className="flex flex-col gap-1">
-          <p className="text-caption uppercase tracking-[0.18em] text-muted-foreground">
-            FMData
-          </p>
-          <h1 className="text-heading-xl">Histórico de audições</h1>
-        </div>
-        <Button onClick={reload} variant="outline">
+    <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-6 px-4 py-8">
+      <header className="flex flex-wrap items-center justify-between gap-3">
+        <h1 className="type-title text-text-1">Histórico de audições</h1>
+        <Button variant="secondary" onClick={reload}>
           Recarregar
         </Button>
       </header>
 
-      <section className="grid gap-4 rounded-xl border border-border bg-card p-6 text-card-foreground sm:grid-cols-3">
-        <div className="flex flex-col gap-1">
-          <span className="text-caption text-muted-foreground">Registos</span>
-          <span className="text-metric">{data.length}</span>
-        </div>
-        <div className="flex flex-col gap-1">
-          <span className="text-caption text-muted-foreground">Estado</span>
-          <span className="text-body-lg">{STATUS_LABELS[status]}</span>
-        </div>
-        <div className="flex flex-col gap-1">
-          <span className="text-caption text-muted-foreground">
-            Cache atualizada
-          </span>
-          <span className="text-body">{formatDate(updatedAt)}</span>
-        </div>
-      </section>
-
       {error ? (
-        <p className="rounded-lg border border-error/40 bg-error-soft px-4 py-3 text-body text-foreground">
-          {error}
-        </p>
+        <Alert status="fail">
+          <AlertTitle>Histórico indisponível</AlertTitle>
+          <AlertDescription>{error}</AlertDescription>
+        </Alert>
       ) : null}
 
+      <Card>
+        <CardHeader>
+          <CardTitle>Estado do histórico</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <DataList>
+            <DataListItem>
+              <DataListLabel>Registos</DataListLabel>
+              <DataListValue>{data.length}</DataListValue>
+            </DataListItem>
+            <DataListItem>
+              <DataListLabel>Estado</DataListLabel>
+              <DataListValue>
+                <StatusLine status={current.status} size="sm" live>
+                  {current.label}
+                </StatusLine>
+              </DataListValue>
+            </DataListItem>
+            <DataListItem>
+              <DataListLabel>Cache atualizada</DataListLabel>
+              <DataListValue>{formatDate(updatedAt)}</DataListValue>
+            </DataListItem>
+          </DataList>
+        </CardContent>
+      </Card>
+
       {latest ? (
-        <section className="flex flex-col gap-2">
-          <h2 className="text-caption uppercase tracking-[0.18em] text-muted-foreground">
-            Reprodução mais recente
-          </h2>
-          <p className="text-body-lg">
-            {latest.track_name} · {latest.artist_name}
-          </p>
-          <p className="text-caption text-muted-foreground">
-            {latest.album_name} — {latest.date_iso}
-          </p>
-        </section>
+        <Card>
+          <CardHeader>
+            <CardTitle>Reprodução mais recente</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <DataList>
+              <DataListItem>
+                <DataListLabel>Faixa</DataListLabel>
+                <DataListValue>{latest.track_name}</DataListValue>
+              </DataListItem>
+              <DataListItem>
+                <DataListLabel>Artista</DataListLabel>
+                <DataListValue>{latest.artist_name}</DataListValue>
+              </DataListItem>
+              <DataListItem>
+                <DataListLabel>Álbum</DataListLabel>
+                <DataListValue>{latest.album_name}</DataListValue>
+              </DataListItem>
+              <DataListItem>
+                <DataListLabel>Data</DataListLabel>
+                <DataListValue>{formatDate(latest.date_iso)}</DataListValue>
+              </DataListItem>
+            </DataList>
+          </CardContent>
+        </Card>
       ) : null}
     </main>
   );

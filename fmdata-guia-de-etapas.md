@@ -268,16 +268,16 @@ interface ArtistaSemelhante {
 Resolve o problema mais traiçoeiro do projeto: **datas inconsistentes**. Faz-se primeiro porque tudo o resto depende dele.
 
 #### `parseDataScrobble(s: Scrobble): Date | null`
-**O que faz:** devolve a data de uma audição, ou `null` se não a tiver.
+**O que faz:** devolve a data de uma reprodução, ou `null` se não a tiver.
 **Como decidir:** prefere `date_uts` (número, sem ambiguidade de formato); usa `date_iso` como alternativa; se `date_iso` for `null` ou `"nowplaying"`, devolve `null`.
 **Casos limite:** confirma na etapa 2 se `date_uts` está em segundos (multiplica por 1000) ou em milissegundos.
 
 #### `temDataValida(s: Scrobble): boolean`
-**O que faz:** diz se uma audição pode entrar em cálculos temporais.
+**O que faz:** diz se uma reprodução pode entrar em cálculos temporais.
 **Para quê:** é o filtro de limpeza que usas antes de qualquer análise por hora, mês ou período.
 
 #### `dataDeReferencia(scrobbles: Scrobble[]): Date | null`
-**O que faz:** devolve a data da audição **mais recente**.
+**O que faz:** devolve a data da reprodução **mais recente**.
 **Porquê existe:** "últimas 24 horas" não conta a partir de agora, conta a partir da reprodução mais recente. Esta função é a âncora de todos os períodos.
 **Caso limite:** array vazio devolve `null`.
 
@@ -356,7 +356,7 @@ Resolve o problema mais traiçoeiro do projeto: **datas inconsistentes**. Faz-se
 **O que faz:** índice com o valor mais alto, para o destaque no gráfico. `null` se tudo for zero.
 
 #### `generoMaisOuvido(scrobbles: Scrobble[]): { genero: string; contagem: number } | null`
-**O que faz:** para cada audição, `separarLista(tags)`, conta cada etiqueta e devolve a maior.
+**O que faz:** para cada reprodução, `separarLista(tags)`, conta cada etiqueta e devolve a maior.
 **Caso limite:** `tags` vazias; normaliza maiúsculas/minúsculas para `"Rock"` e `"rock"` contarem juntas.
 
 **Pronto quando:** com a amostra, os totais e os tops batem com o que verificas à mão numa contagem pequena.
