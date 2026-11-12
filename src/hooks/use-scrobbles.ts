@@ -1,8 +1,9 @@
 "use client";
 
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 
 import { useHydrated } from "@/hooks/use-hydrated";
+import { removerSemData } from "@/lib/filters";
 import { useAppStore } from "@/providers/app-store-provider";
 import type { Scrobble, Status } from "@/types";
 
@@ -17,7 +18,7 @@ export interface UseScrobblesResult {
   reload: () => void;
 }
 
-/** Histórico cru. A filtragem por período é feita fora da cache. */
+/** Histórico sem "a tocar agora". A filtragem por período é feita fora da cache. */
 export function useScrobbles(): UseScrobblesResult {
   const hydrated = useHydrated();
   const scrobbles = useAppStore((state) => state.scrobbles);
@@ -28,12 +29,17 @@ export function useScrobbles(): UseScrobblesResult {
     void loadScrobbles();
   }, [hydrated, loadScrobbles]);
 
+  const data = useMemo(
+    () => (scrobbles.data ? removerSemData(scrobbles.data) : EMPTY_SCROBBLES),
+    [scrobbles.data],
+  );
+
   const reload = useCallback(() => {
     void loadScrobbles(true);
   }, [loadScrobbles]);
 
   return {
-    data: scrobbles.data ?? EMPTY_SCROBBLES,
+    data,
     status: scrobbles.status,
     error: scrobbles.error,
     updatedAt: scrobbles.updatedAt,
