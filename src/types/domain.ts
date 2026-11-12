@@ -1,6 +1,6 @@
 import type { AlbumProfile, ArtistProfile, Scrobble } from "./api";
 
-/** Períodos disponíveis no filtro global do dashboard. */
+/** Períodos disponíveis no filtro de cada cartão do dashboard. */
 export type Period = "all" | "30d" | "14d" | "7d" | "24h";
 
 /** Estado de qualquer dado que vem da rede. */
@@ -24,6 +24,8 @@ export interface RankingItem {
   subtitle?: string;
   count: number;
   image?: string | null;
+  /** Página do item, quando existe; a linha inteira passa a ser um link. */
+  href?: string;
 }
 
 /** Ponto de um gráfico mensal. */
@@ -55,6 +57,12 @@ export interface ArtistSummary {
   favouriteTracks: number;
   firstPlayed: Date | null;
   lastPlayed: Date | null;
+}
+
+/** Posição de um artista no ranking all-time por reproduções. */
+export interface ArtistPosition {
+  position: number;
+  totalArtists: number;
 }
 
 /** Álbum de um artista, com as faixas distintas que já foram ouvidas. */
