@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "FMData",
-  description: "Histórico de audições do Last.fm.",
+  description: "Histórico de reproduções do Last.fm.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
