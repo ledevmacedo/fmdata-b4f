@@ -7,6 +7,11 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "lastfm-img.freetls.fastly.net",
       },
+      // As imagens de artista vêm da Wikipedia (thumb. e upload.wikimedia.org).
+      {
+        protocol: "https",
+        hostname: "**.wikimedia.org",
+      },
     ],
   },
   experimental: {
