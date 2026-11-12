@@ -1,11 +1,8 @@
 import type { ApiResult, Scrobble } from "@/types";
 import { getJson } from "./http";
 
-/**
- * Endpoint do histórico de reproduções.
- * Quando o histórico completo estiver disponível, trocar para "/scrobbles".
- */
-export const SCROBBLES_ENDPOINT = "/scrobbles/amostra";
+/** Endpoint do histórico completo de reproduções. */
+export const SCROBBLES_ENDPOINT = "/scrobbles";
 
 export function getScrobbles(
   signal?: AbortSignal,
