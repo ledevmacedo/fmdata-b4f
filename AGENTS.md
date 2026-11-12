@@ -54,8 +54,8 @@ Last.fm listening dashboard (final frontend project). UI copy and metadata are P
 
 ## Map
 
-- `/` — dashboard, currently a stub in `src/app/page.tsx`, built on Glaze.
-- `/artist/[slug]` — stub, but the files are named `src/app/artist/[slug].tsx` and `not-Found.tsx`. Rename to `page.tsx` and `not-found.tsx`; otherwise Next creates no route (the build currently lists only `/`, `/_not-found` and `/design-system`).
+- `/` - dashboard in `src/app/page.tsx`, built on Glaze over the full history from the store: `src/components/dashboard/*` renders the sections and `src/lib/dashboard.ts` aggregates the rows. Each card filters its own period. No mock data.
+- `/artistas/[nome]` - artist page, always all-time: header, stats, top 10, albums table, 24-month line chart, 24h dial, last auditions and similar artists. No period filter.
 - `/design-system` — showcase of Glaze tokens and the components in use (`src/components/design-system/showcase.tsx`); use it to inspect visual changes.
 - `src/types/` holds shared contracts: `api.ts` mirrors the API's snake_case fields, `domain.ts`/`store.ts` define `Entry<T>`, `Status`, `Periodo`, and `AppStore` (Portuguese domain names), and `index.ts` re-exports them. `ArtistInfo`/`AlbumInfo` are aliases for `ArtistProfile`/`AlbumProfile`. Reuse these instead of redefining API shapes.
 - `src/lib/glaze/` — Glaze utils, the overlay portal provider, and the lint plugin. `src/lib/api.ts`, `src/stores/*`, and `src/providers/*` are still empty placeholders.
