@@ -213,9 +213,9 @@ export function Showcase() {
       <section className="flex flex-col gap-3">
         <h2 className="type-heading text-text-1">Mensagens</h2>
         <Alert status="neutral" announce={false}>
-          <AlertTitle>Amostra limitada</AlertTitle>
+          <AlertTitle>Histórico completo</AlertTitle>
           <AlertDescription>
-            Os dados de exemplo mostram apenas as primeiras 100 audições.
+            As reproduções vêm da API e ficam guardadas em cache.
           </AlertDescription>
         </Alert>
         <Alert status="ok" announce={false}>
@@ -242,7 +242,7 @@ export function Showcase() {
           <div className="flex flex-col gap-2">
             <Card>
               <CardHeader>
-                <CardTitle>Última audição</CardTitle>
+                <CardTitle>Última reprodução</CardTitle>
               </CardHeader>
               <CardContent>
                 <DataList>
