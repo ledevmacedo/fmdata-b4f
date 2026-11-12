@@ -71,7 +71,6 @@ export function mergePersisted(
 
   return {
     ...current,
-    period: cached.period ?? current.period,
     scrobbles,
     artists: fromCachedMap(cached.artists),
     albums: fromCachedMap(cached.albums),

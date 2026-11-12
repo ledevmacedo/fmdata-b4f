@@ -1,9 +1,8 @@
 import type { AlbumProfile, ArtistProfile, Scrobble } from "./api";
-import type { Entry, Period } from "./domain";
+import type { Entry } from "./domain";
 
 /** Parte da store que é estado persistido. */
 export interface StoreState {
-  period: Period;
   scrobbles: Entry<Scrobble[]>;
   /** Chave: nome normalizado do artista. */
   artists: Record<string, Entry<ArtistProfile>>;
@@ -13,7 +12,6 @@ export interface StoreState {
 
 /** Ações que alteram a store e disparam pedidos. */
 export interface StoreActions {
-  setPeriod: (period: Period) => void;
   loadScrobbles: (force?: boolean) => Promise<void>;
   loadArtist: (name: string, force?: boolean) => Promise<void>;
   loadAlbum: (artist: string, album: string, force?: boolean) => Promise<void>;
@@ -30,7 +28,6 @@ export interface CachedEntry<T> {
 
 /** Forma persistida no IndexedDB. */
 export interface PersistedStore {
-  period: Period;
   /** Endpoint usado quando os scrobbles foram guardados. */
   scrobblesEndpoint: string;
   scrobbles: CachedEntry<Scrobble[]> | null;

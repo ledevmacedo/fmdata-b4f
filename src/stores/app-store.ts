@@ -10,7 +10,7 @@ import { normalizeName } from "@/lib/filters";
 import { getAlbumInfo } from "@/services/albums";
 import { getArtistInfo } from "@/services/artists";
 import { getScrobbles, SCROBBLES_ENDPOINT } from "@/services/scrobbles";
-import type { AppStore, Period, PersistedStore, Scrobble } from "@/types";
+import type { AppStore, PersistedStore, Scrobble } from "@/types";
 import { mergePersisted, toCachedEntry, toCachedMap } from "./cache";
 import { dedupe } from "./dedup";
 import { emptyEntry, entryFromResult, loadingEntry } from "./entry";
@@ -23,12 +23,9 @@ export function createAppStore() {
   return createStore<AppStore>()(
     persist<AppStore, [], [], PersistedStore>(
       (set, get) => ({
-        period: "all",
         scrobbles: emptyEntry<Scrobble[]>(),
         artists: {},
         albums: {},
-
-        setPeriod: (period: Period) => set({ period }),
 
         loadScrobbles: (force = false) => {
           const current = get().scrobbles;
@@ -111,7 +108,6 @@ export function createAppStore() {
         storage: createJSONStorage(() => storage),
         skipHydration: true,
         partialize: (state): PersistedStore => ({
-          period: state.period,
           scrobblesEndpoint: SCROBBLES_ENDPOINT,
           scrobbles: toCachedEntry(state.scrobbles),
           artists: toCachedMap(state.artists),
