@@ -14,7 +14,6 @@ import { RankingCard } from "@/components/dashboard/ranking-card";
 import { SectionCard } from "@/components/dashboard/section-card";
 import { ArrowLeft, Icon } from "@/components/glaze/icon";
 import { Button, buttonVariants } from "@/components/glaze/ui/button";
-import { CardContent } from "@/components/glaze/ui/card";
 import { BlockState } from "@/components/ui/block-state";
 import { useArtistInfo } from "@/hooks/use-artist-info";
 import { useScrobbles } from "@/hooks/use-scrobbles";
@@ -42,12 +41,9 @@ function descodificar(valor: string): string {
 function SemReproducoes({ title }: { title: string }) {
   return (
     <SectionCard title={title}>
-      <CardContent>
-        <BlockState
-          kind="empty"
-          title="Sem reproduções deste artista no histórico."
-        />
-      </CardContent>
+      <p className="py-4 type-body text-text-2">
+        Sem reproduções deste artista no histórico.
+      </p>
     </SectionCard>
   );
 }
@@ -55,10 +51,10 @@ function SemReproducoes({ title }: { title: string }) {
 /** Moldura da página: o link de volta e o conteúdo, iguais no carregamento e depois dele. */
 function Pagina({ children }: { children: ReactNode }) {
   return (
-    <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-6 px-4 py-8">
+    <main className="mx-auto flex w-full max-w-(--page-width) flex-1 flex-col px-4 pb-16 sm:px-6 lg:px-8">
       <Link
         href="/"
-        className="inline-flex w-fit items-center gap-1.5 type-label text-text-2 hover:text-text-1"
+        className="mt-6 inline-flex w-fit items-center gap-1.5 type-label text-text-2 hover:text-text-1"
       >
         <Icon icon={ArrowLeft} size={14} />
         Dashboard
@@ -68,13 +64,24 @@ function Pagina({ children }: { children: ReactNode }) {
   );
 }
 
+function Estado({ children }: { children: ReactNode }) {
+  return (
+    <div className="flex min-h-96 items-center justify-center py-16">
+      <h1 className="sr-only">Artista</h1>
+      {children}
+    </div>
+  );
+}
+
 /** `useParams` suspende durante o prerender, por isso o conteúdo vive dentro de um Suspense. */
 export default function Artista() {
   return (
     <Suspense
       fallback={
         <Pagina>
-          <BlockState kind="loading" title="A carregar o artista…" />
+          <Estado>
+            <BlockState kind="loading" title="A carregar o artista…" />
+          </Estado>
         </Pagina>
       }
     >
@@ -162,22 +169,31 @@ function ArtistaDetalhe() {
 
   return (
     <Pagina>
-      {estado ??
-        (dados ? (
-          <>
-            <ArtistHeader profile={dados} />
-            <ArtistStats resumo={resumo} posicao={posicao} />
+      {estado ? (
+        <Estado>{estado}</Estado>
+      ) : dados ? (
+        <>
+          <ArtistHeader profile={dados} />
+          <ArtistStats resumo={resumo} posicao={posicao} />
 
-            {topMusicas.length ? (
-              <RankingCard
-                title="Músicas mais ouvidas"
-                description="Top 10 deste artista"
-                items={topMusicas}
-                ranked
-              />
-            ) : (
-              <SemReproducoes title="Músicas mais ouvidas" />
-            )}
+          <div className="flex flex-col gap-12 lg:gap-16">
+            <div className="grid gap-12 lg:grid-cols-12 lg:gap-10">
+              <div className="lg:col-span-7">
+                {topMusicas.length ? (
+                  <RankingCard
+                    title="Músicas mais ouvidas"
+                    description="Top 10 deste artista"
+                    items={topMusicas}
+                    ranked
+                  />
+                ) : (
+                  <SemReproducoes title="Músicas mais ouvidas" />
+                )}
+              </div>
+              <div className="lg:col-span-5">
+                <SimilarArtistsCard artistas={semelhantes} />
+              </div>
+            </div>
 
             {albuns.length ? (
               <AlbumsTable artist={dados.name} albuns={albuns} />
@@ -185,19 +201,23 @@ function ArtistaDetalhe() {
               <SemReproducoes title="Álbuns" />
             )}
 
-            <MonthsCard pontos={meses} />
-
-            <ListeningClock
-              porHora={porHora}
-              pico={pico}
-              title="A que horas ouves este artista"
-            />
+            <div className="grid gap-12 lg:grid-cols-12 lg:gap-10">
+              <div className="lg:col-span-7">
+                <MonthsCard pontos={meses} />
+              </div>
+              <div className="lg:col-span-5">
+                <ListeningClock
+                  porHora={porHora}
+                  pico={pico}
+                  title="A que horas ouves este artista"
+                />
+              </div>
+            </div>
 
             <AuditionsCard rows={recentes} />
-
-            <SimilarArtistsCard artistas={semelhantes} />
-          </>
-        ) : null)}
+          </div>
+        </>
+      ) : null}
     </Pagina>
   );
 }

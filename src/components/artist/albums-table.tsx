@@ -2,7 +2,6 @@
 
 import { Artwork } from "@/components/dashboard/artwork";
 import { SectionCard } from "@/components/dashboard/section-card";
-import { CardContent } from "@/components/glaze/ui/card";
 import {
   Table,
   TableBody,
@@ -50,22 +49,24 @@ export function AlbumsTable({
 }) {
   return (
     <SectionCard title="Álbuns" description="Até 8">
-      <CardContent flush>
-        <Table frame="none" aria-label="Álbuns mais ouvidos">
-          <TableHeader>
-            <TableRow>
-              <TableHead>Álbum</TableHead>
-              <TableHead numeric>Faixas ouvidas</TableHead>
-              <TableHead numeric>Scrobbles</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {albuns.map((album) => (
-              <AlbumRow key={album.name} artist={artist} album={album} />
-            ))}
-          </TableBody>
-        </Table>
-      </CardContent>
+      <Table
+        frame="none"
+        frameClassName="border-b border-line-faint"
+        aria-label="Álbuns mais ouvidos"
+      >
+        <TableHeader>
+          <TableRow>
+            <TableHead>Álbum</TableHead>
+            <TableHead numeric>Faixas ouvidas</TableHead>
+            <TableHead numeric>Scrobbles</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {albuns.map((album) => (
+            <AlbumRow key={album.name} artist={artist} album={album} />
+          ))}
+        </TableBody>
+      </Table>
     </SectionCard>
   );
 }

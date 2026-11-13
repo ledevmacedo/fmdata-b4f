@@ -15,6 +15,11 @@ export interface DashboardSummary {
   totalScrobbles: number;
   /** Artistas distintos no histórico local. */
   uniqueArtists: number;
+  /** Álbuns distintos no histórico local; linhas sem álbum não contam. */
+  uniqueAlbums: number;
+  /** Reprodução mais antiga e mais recente com data, em segundos Unix. */
+  firstScrobble: number | null;
+  lastScrobble: number | null;
   esquecido: ArtistaEsquecido | null;
 }
 
@@ -88,12 +93,27 @@ const albumItem: ItemOf = (row) => ({
 export function buildDashboard(rows: Scrobble[]): DashboardSummary {
   const artists = topArtistas(rows, 1);
   const tracks = topMusicas(rows, 1);
+  let firstScrobble: number | null = null;
+  let lastScrobble: number | null = null;
+
+  for (const row of rows) {
+    if (row.date_uts === null) continue;
+    if (firstScrobble === null || row.date_uts < firstScrobble) {
+      firstScrobble = row.date_uts;
+    }
+    if (lastScrobble === null || row.date_uts > lastScrobble) {
+      lastScrobble = row.date_uts;
+    }
+  }
 
   return {
     cover: artists[0]?.image ?? null,
     topTrack: tracks[0] ?? null,
     totalScrobbles: rows.length,
     uniqueArtists: new Set(rows.map(artistKey)).size,
+    uniqueAlbums: new Set(rows.map(albumKey).filter(Boolean)).size,
+    firstScrobble,
+    lastScrobble,
     esquecido: artistaEsquecido(rows),
   };
 }

@@ -1,0 +1,74 @@
+/* FMData's editorial layer on top of Glaze.
+   Only type and layout tokens live here: colour stays in Glaze's roles, and the
+   display scale is the app's one deliberate extension of Glaze's compact scale. */
+
+body.glaze {
+  --page-width: 80rem;
+  --type-display: 500 clamp(2.6rem, 6.2vw, 5.75rem) / 1.04 var(--font-sans);
+  --type-display-sm: 500 clamp(1.75rem, 3.4vw, 2.75rem) / 1.04 var(--font-sans);
+  --type-figure: 500 clamp(2.25rem, 4.6vw, 4.25rem) / 1 var(--font-sans);
+  --tracking-display: -0.045em;
+  --tracking-figure: -0.03em;
+}
+
+@utility type-display {
+  font: var(--type-display);
+  letter-spacing: var(--tracking-display);
+  text-wrap: balance;
+}
+
+@utility type-display-sm {
+  font: var(--type-display-sm);
+  letter-spacing: var(--tracking-display);
+  text-wrap: balance;
+}
+
+@utility type-figure {
+  font: var(--type-figure);
+  letter-spacing: var(--tracking-figure);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Ranking bars grow from the left when their section mounts. The target width
+   comes from --bar; the animation only moves the ink, so reduced motion keeps
+   the final state and the data readable. */
+.bar-grow {
+  width: var(--bar);
+  transform-origin: left center;
+  animation: bar-grow 900ms var(--ease-out) both;
+}
+
+@keyframes bar-grow {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bar-grow {
+    animation: none;
+  }
+}
+
+/* Scroll-triggered reveal: sections fade and lift in as they enter the viewport.
+   Default (no JS / reduced motion) keeps the content fully visible. */
+.reveal-scroll {
+  transition:
+    opacity 360ms var(--ease-out),
+    transform 360ms var(--ease-out);
+  will-change: transform, opacity;
+}
+
+.reveal-scroll.reveal-hidden {
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-scroll,
+  .reveal-scroll.reveal-hidden {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

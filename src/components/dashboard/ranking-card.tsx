@@ -3,7 +3,6 @@ import type { CSSProperties } from "react";
 import { Artwork } from "@/components/dashboard/artwork";
 import type { FiltroDePeriodo } from "@/components/dashboard/period-filter";
 import { SectionCard } from "@/components/dashboard/section-card";
-import { CardContent } from "@/components/glaze/ui/card";
 import {
   Item,
   ItemContent,
@@ -39,14 +38,20 @@ export function RankingCard({
 
   return (
     <SectionCard title={title} description={description} filter={filter}>
-      <CardContent flush>
-        {items.length ? (
-          <ItemGroup variant="plain" aria-label={title}>
-            {items.map((item, index) => (
+      {items.length ? (
+        <ItemGroup
+          variant="plain"
+          aria-label={title}
+          className="-mx-3 border-b border-line-faint"
+        >
+          {items.map((item, index) => {
+            const pct = max ? (item.count / max) * 100 : 0;
+
+            return (
               <Item key={item.key}>
                 <ItemMedia className={ranked ? "gap-3" : undefined}>
                   {ranked ? (
-                    <span className="w-5 shrink-0 type-body-sm text-text-3 tabular-nums">
+                    <span className="w-5 shrink-0 type-caption text-text-3 tabular-nums">
                       {index + 1}
                     </span>
                   ) : null}
@@ -73,30 +78,30 @@ export function RankingCard({
                     </p>
                   ) : null}
                 </ItemContent>
-                {/* O total é a soma da tabela, por isso o preenchimento nunca chega ao texto, que fica sobre a pista clara. */}
-                <div className="relative h-7 w-24 shrink-0 overflow-hidden rounded-pill bg-field sm:w-44">
-                  <div
-                    aria-hidden
-                    className="absolute inset-y-0 left-0 w-(--pct) rounded-pill bg-ink/75"
-                    style={
-                      {
-                        "--pct": `${max ? (item.count / max) * 100 : 0}%`,
-                      } as CSSProperties
-                    }
-                  />
-                  <span className="relative flex h-full items-center justify-end pe-2.5 type-caption text-text-1 tabular-nums">
+                <div className="flex w-28 shrink-0 flex-col items-end gap-1.5 sm:w-36">
+                  <span className="type-caption text-text-2 tabular-nums">
                     {formatScrobbles(item.count)}
+                  </span>
+                  <span
+                    aria-hidden
+                    className="h-0.5 w-full overflow-hidden bg-field"
+                  >
+                    <span
+                      key={`${item.key}-${item.count}`}
+                      className="bar-grow block h-full bg-ink/70"
+                      style={{ "--bar": `${pct}%` } as CSSProperties}
+                    />
                   </span>
                 </div>
               </Item>
-            ))}
-          </ItemGroup>
-        ) : (
-          <p className="p-4 type-body text-text-2">
-            Sem reproduções neste período.
-          </p>
-        )}
-      </CardContent>
+            );
+          })}
+        </ItemGroup>
+      ) : (
+        <p className="py-4 type-body text-text-2">
+          Sem reproduções neste período.
+        </p>
+      )}
     </SectionCard>
   );
 }

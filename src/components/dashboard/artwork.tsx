@@ -4,6 +4,7 @@ import { isGif } from "@/lib/images";
 
 const sizes = {
   xs: "size-6",
+  sm: "size-10",
   md: "size-16",
   lg: "size-20",
   xl: "size-28",
@@ -11,13 +12,14 @@ const sizes = {
 
 const pixels: Record<keyof typeof sizes, string> = {
   xs: "24px",
+  sm: "40px",
   md: "64px",
   lg: "80px",
   xl: "112px",
 };
 
 // Glaze's initialsOf lives in a client module, so it cannot run here (this is a server component).
-function initials(name: string) {
+export function initials(name: string) {
   const words = name.split(/[\s._\-/]+/).filter(Boolean);
   if (!words.length) return "";
   const first = [...words[0]][0] ?? "";
@@ -51,7 +53,7 @@ export function Artwork({
         "relative flex shrink-0 items-center justify-center overflow-hidden border border-line bg-field text-text-2",
         size === "xl"
           ? "type-heading"
-          : size === "xs"
+          : size === "xs" || size === "sm"
             ? "type-caption"
             : "type-heading-sm",
         shape === "circle" ? "rounded-pill" : "rounded-tag",

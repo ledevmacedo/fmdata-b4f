@@ -3,43 +3,49 @@ import {
   type FiltroDePeriodo,
   PeriodFilter,
 } from "@/components/dashboard/period-filter";
-import {
-  Card,
-  CardAction,
-  CardDescription,
-  CardHeader,
-} from "@/components/glaze/ui/card";
+import { Reveal } from "@/components/motion/reveal";
+import { cn } from "@/lib/glaze/utils";
 
 interface SectionCardProps {
+  id?: string;
   title: string;
   description?: string;
   /** Filtro de período local; os cartões que não têm período próprio omitem-no. */
   filter?: FiltroDePeriodo;
+  className?: string;
   children: ReactNode;
 }
 
-/** Cartão de secção: título, descrição e, quando o cartão filtra, o filtro de período. */
+/**
+ * A section of the report: heading, optional period filter, then content.
+ * Flat on the page, closed by a hairline, so the data is not boxed into cards.
+ */
 export function SectionCard({
+  id,
   title,
   description,
   filter,
+  className,
   children,
 }: SectionCardProps) {
   return (
-    <Card>
-      <CardHeader>
-        {/* CardTitle fixa type-label (13px), menor do que os títulos das linhas; a secção usa o papel de heading. */}
-        <h2 className="col-start-1 min-w-0 type-heading text-text-1">
-          {title}
-        </h2>
-        {description ? <CardDescription>{description}</CardDescription> : null}
-        {filter ? (
-          <CardAction>
-            <PeriodFilter label={title} {...filter} />
-          </CardAction>
-        ) : null}
-      </CardHeader>
+    <Reveal
+      as="section"
+      id={id}
+      className={cn("scroll-mt-20 border-t border-line-faint pt-6", className)}
+    >
+      <div className="mb-5 flex flex-wrap items-start justify-between gap-x-6 gap-y-3">
+        <div className="min-w-0">
+          <h2 className="min-w-0 type-heading text-text-1 [overflow-wrap:anywhere]">
+            {title}
+          </h2>
+          {description ? (
+            <p className="type-body-sm text-text-2">{description}</p>
+          ) : null}
+        </div>
+        {filter ? <PeriodFilter label={title} {...filter} /> : null}
+      </div>
       {children}
-    </Card>
+    </Reveal>
   );
 }

@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { Artwork } from "@/components/dashboard/artwork";
 import { SectionCard } from "@/components/dashboard/section-card";
-import { CardContent } from "@/components/glaze/ui/card";
 import {
   Item,
   ItemContent,
@@ -21,48 +20,50 @@ export function SimilarArtistsCard({
       title="Artistas semelhantes"
       description="Os que já ouviste abrem a página"
     >
-      <CardContent flush>
-        {artistas.length === 0 ? (
-          <p className="p-3 type-body text-text-2">
-            A API não devolveu artistas semelhantes.
-          </p>
-        ) : (
-          <ItemGroup variant="plain" aria-label="Artistas semelhantes">
-            {artistas.map((artista) => (
-              <Item key={artista.name}>
-                <ItemMedia>
-                  <Artwork name={artista.name} shape="circle" />
-                </ItemMedia>
-                <ItemContent>
-                  <div
-                    className={
-                      artista.listened
-                        ? "min-w-0 truncate type-heading-sm text-text-1"
-                        : "min-w-0 truncate type-heading-sm text-text-3"
-                    }
-                  >
-                    {artista.listened ? (
-                      <Link
-                        href={`/artistas/${encodeURIComponent(artista.name)}`}
-                        data-slot="item-link"
-                        data-control=""
-                        className="after:absolute after:inset-0 after:content-['']"
-                      >
-                        {artista.name}
-                      </Link>
-                    ) : (
-                      artista.name
-                    )}
-                  </div>
-                  {artista.listened ? null : (
-                    <p className="type-caption text-text-3">Ainda não ouvido</p>
+      {artistas.length === 0 ? (
+        <p className="py-4 type-body text-text-2">
+          A API não devolveu artistas semelhantes.
+        </p>
+      ) : (
+        <ItemGroup
+          variant="plain"
+          aria-label="Artistas semelhantes"
+          className="-mx-3 border-b border-line-faint"
+        >
+          {artistas.map((artista) => (
+            <Item key={artista.name}>
+              <ItemMedia>
+                <Artwork name={artista.name} shape="circle" size="sm" />
+              </ItemMedia>
+              <ItemContent>
+                <div
+                  className={
+                    artista.listened
+                      ? "min-w-0 truncate type-label-lg text-text-1"
+                      : "min-w-0 truncate type-label-lg text-text-3"
+                  }
+                >
+                  {artista.listened ? (
+                    <Link
+                      href={`/artistas/${encodeURIComponent(artista.name)}`}
+                      data-slot="item-link"
+                      data-control=""
+                      className="after:absolute after:inset-0 after:content-['']"
+                    >
+                      {artista.name}
+                    </Link>
+                  ) : (
+                    artista.name
                   )}
-                </ItemContent>
-              </Item>
-            ))}
-          </ItemGroup>
-        )}
-      </CardContent>
+                </div>
+                {artista.listened ? null : (
+                  <p className="type-caption text-text-3">Ainda não ouvido</p>
+                )}
+              </ItemContent>
+            </Item>
+          ))}
+        </ItemGroup>
+      )}
     </SectionCard>
   );
 }

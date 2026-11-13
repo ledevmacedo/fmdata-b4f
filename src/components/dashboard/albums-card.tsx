@@ -8,14 +8,17 @@ import type { RankingItem } from "@/types";
 
 /** Grelha de álbuns: quadrados colados, arte como fundo, com artista, álbum e total. */
 export function AlbumsCard({
+  id,
   items,
   filter,
 }: {
+  id?: string;
   items: RankingItem[];
   filter?: FiltroDePeriodo;
 }) {
   return (
     <SectionCard
+      id={id}
       title="Álbuns mais ouvidos"
       description="Top 8"
       filter={filter}
@@ -38,7 +41,7 @@ export function AlbumsCard({
                     className="object-cover"
                   />
                 ) : null}
-                <div className="absolute inset-0 bg-ink/70 transition-opacity duration-500 ease-out group-hover:opacity-0" />
+                <div className="absolute inset-0 bg-scrim transition-opacity duration-500 ease-out group-hover:opacity-0" />
                 <div className="absolute inset-0 flex flex-col justify-end gap-1 p-2">
                   <p className="truncate type-body-sm text-text-inverse">
                     {item.subtitle}

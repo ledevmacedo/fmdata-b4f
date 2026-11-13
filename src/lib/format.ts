@@ -13,6 +13,12 @@ const dateFormat = new Intl.DateTimeFormat("pt-PT", {
   timeZone: "UTC",
 });
 
+const monthYearFormat = new Intl.DateTimeFormat("pt-PT", {
+  month: "long",
+  year: "numeric",
+  timeZone: "UTC",
+});
+
 /** Número no formato pt-PT, com o separador de milhares local. */
 export function formatNumber(value: number): string {
   return numberFormat.format(value);
@@ -26,6 +32,11 @@ export function formatDia(uts: number): string {
 /** Dia, mês e ano em UTC, para datas antigas em que o ano é a informação. */
 export function formatData(uts: number): string {
   return dateFormat.format(new Date(uts * 1000));
+}
+
+/** Mês e ano em UTC, para a abertura do arquivo. */
+export function formatMesAno(uts: number): string {
+  return monthYearFormat.format(new Date(uts * 1000));
 }
 
 /** Contagem de scrobbles no formato pt-PT, com singular e plural corretos. */

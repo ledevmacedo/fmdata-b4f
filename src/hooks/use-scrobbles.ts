@@ -12,6 +12,8 @@ const EMPTY_SCROBBLES: Scrobble[] = [];
 
 export interface UseScrobblesResult {
   data: Scrobble[];
+  /** A reprodução em curso, quando a API a devolve; fica fora de `data` e das contas. */
+  nowPlaying: Scrobble | null;
   status: Status;
   error: string | null;
   updatedAt: number | null;
@@ -34,12 +36,18 @@ export function useScrobbles(): UseScrobblesResult {
     [scrobbles.data],
   );
 
+  const nowPlaying = useMemo(
+    () => scrobbles.data?.find((row) => row.nowplaying) ?? null,
+    [scrobbles.data],
+  );
+
   const reload = useCallback(() => {
     void loadScrobbles(true);
   }, [loadScrobbles]);
 
   return {
     data,
+    nowPlaying,
     status: scrobbles.status,
     error: scrobbles.error,
     updatedAt: scrobbles.updatedAt,

@@ -49,6 +49,12 @@
       "skillPath": ".agents/skills/impeccable/SKILL.md",
       "computedHash": "c05846cabdf69b247d13f41671935c676f417439036e25e70f92d84e945d0d89"
     },
+    "improve-animations": {
+      "source": "emilkowalski/skills",
+      "sourceType": "github",
+      "skillPath": "skills/improve-animations/SKILL.md",
+      "computedHash": "197db8a2e4a2f009ad5aeef57fb9aafbec83f9023bfff269a4bf5ede1106584a"
+    },
     "migrate-design-system": {
       "source": "arla6ka/design.how",
       "sourceType": "github",

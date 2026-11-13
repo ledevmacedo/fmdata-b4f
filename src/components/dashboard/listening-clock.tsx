@@ -3,7 +3,6 @@
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 import type { FiltroDePeriodo } from "@/components/dashboard/period-filter";
 import { SectionCard } from "@/components/dashboard/section-card";
-import { CardContent } from "@/components/glaze/ui/card";
 import { formatNumber, formatScrobbles } from "@/lib/format";
 
 interface PontoDaHora {
@@ -55,11 +54,9 @@ export function ListeningClock({
   if (pico === null) {
     return (
       <SectionCard title={title} description={description} filter={filter}>
-        <CardContent>
-          <p className="type-body text-text-2">
-            Sem reproduções com data neste período.
-          </p>
-        </CardContent>
+        <p className="py-4 type-body text-text-2">
+          Sem reproduções com data neste período.
+        </p>
       </SectionCard>
     );
   }
@@ -70,11 +67,11 @@ export function ListeningClock({
 
   return (
     <SectionCard title={title} description={description} filter={filter}>
-      <CardContent className="flex-row items-center gap-4">
+      <div className="flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:gap-8">
         <div
           role="img"
           aria-label={`Reproduções por hora, em UTC. Pico às ${pico}h, com ${formatScrobbles(picoTotal)}.`}
-          className="relative size-44 shrink-0 text-text-3"
+          className="relative size-52 shrink-0 text-text-3 sm:size-56"
         >
           <ResponsiveContainer width="100%" height="100%">
             <PieChart accessibilityLayer={false}>
@@ -134,19 +131,20 @@ export function ListeningClock({
             </div>
           </div>
         </div>
-        <dl className="flex min-w-0 flex-col gap-3">
+
+        <dl className="flex min-w-0 flex-col gap-5">
           <div>
             <dt className="type-caption text-text-2">Hora de pico</dt>
             <dd className="type-title text-text-1 tabular-nums">{pico}:00</dd>
           </div>
           <div>
             <dt className="type-caption text-text-2">Scrobbles nessa hora</dt>
-            <dd className="type-title text-text-1 tabular-nums">
+            <dd className="type-heading text-text-1 tabular-nums">
               {formatNumber(picoTotal)}
             </dd>
           </div>
         </dl>
-      </CardContent>
+      </div>
     </SectionCard>
   );
 }

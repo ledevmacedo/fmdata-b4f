@@ -9,9 +9,8 @@ import {
   YAxis,
 } from "recharts";
 import { SectionCard } from "@/components/dashboard/section-card";
-import { CardContent } from "@/components/glaze/ui/card";
 import { BlockState } from "@/components/ui/block-state";
-import { formatScrobbles } from "@/lib/format";
+import { formatNumber, formatScrobbles } from "@/lib/format";
 import type { MonthlyPoint } from "@/types";
 
 const mesLongo = new Intl.DateTimeFormat("pt-PT", {
@@ -57,17 +56,31 @@ export function MonthsCard({ pontos }: { pontos: MonthlyPoint[] }) {
       title="Evolução mensal"
       description={`Últimos ${pontos.length} meses`}
     >
-      <CardContent>
-        {total === 0 ? (
-          <BlockState
-            kind="empty"
-            title="Sem reproduções com data neste artista."
-          />
-        ) : (
+      {total === 0 ? (
+        <BlockState
+          kind="empty"
+          title="Sem reproduções com data neste artista."
+        />
+      ) : (
+        <>
+          <dl className="mb-5 flex flex-wrap gap-x-10 gap-y-3">
+            <div>
+              <dt className="type-caption text-text-2">Total</dt>
+              <dd className="type-heading-sm text-text-1 tabular-nums">
+                {formatNumber(total)}
+              </dd>
+            </div>
+            <div>
+              <dt className="type-caption text-text-2">Melhor mês</dt>
+              <dd className="type-heading-sm text-text-1 tabular-nums">
+                {formatNumber(pico)}
+              </dd>
+            </div>
+          </dl>
           <div
             role="img"
             aria-label={`Reproduções por mês nos últimos ${pontos.length} meses. O mês mais ouvido teve ${formatScrobbles(pico)}.`}
-            className="h-40"
+            className="h-48 sm:h-56"
           >
             <ResponsiveContainer width="100%" height="100%">
               <LineChart
@@ -109,8 +122,8 @@ export function MonthsCard({ pontos }: { pontos: MonthlyPoint[] }) {
               </LineChart>
             </ResponsiveContainer>
           </div>
-        )}
-      </CardContent>
+        </>
+      )}
     </SectionCard>
   );
 }
